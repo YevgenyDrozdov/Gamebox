@@ -12,31 +12,31 @@ public class FileSystemGameRepository implements GameRepository {
 
     private GameRepositoryConfiguration repositoryConfiguration;
     private GameLocator<File> gameLocator;
-    private GameBuilder<File> gameBuilder;
+    private GameLoader<File> gameLoader;
 
     @Override
     public void init(GameRepositoryConfiguration configuration,
-                     GameLocator gameLocator, GameBuilder gameBuilder) {
+                     GameLocator gameLocator, GameLoader gameLoader) {
         repositoryConfiguration = configuration;
         this.gameLocator = gameLocator;
-        this.gameBuilder = gameBuilder;
+        this.gameLoader = gameLoader;
     }
 
     @Override
-    public List<Game> getAllGames() {
+    public List<GameDescriptor> getAllGameDescriptors() {
 
-        List<Game> games = new ArrayList<Game>();
+        List<GameDescriptor> gameDescriptors = new ArrayList<GameDescriptor>();
 
         File gamesRoot = getRepositoryFileSystemPath();
         File[] files = gamesRoot.listFiles();
 
         for (File file : files) {
             if (gameLocator.isGame(file)) {
-                games.add(gameBuilder.buildGame(file));
+                gameDescriptors.add(gameLoader.getGameDescriptor(file));
             }
         }
 
-        return games;
+        return gameDescriptors;
     }
 
     @Override
@@ -61,8 +61,8 @@ public class FileSystemGameRepository implements GameRepository {
         return gameLocator;
     }
 
-    protected GameBuilder getGameBuilder() {
-        return gameBuilder;
+    protected GameLoader getGameLoader() {
+        return gameLoader;
     }
 
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface GameRepository {
 
-    void init(GameRepositoryConfiguration configuration, GameLocator gameLocator, GameBuilder gameBuilder);
-    List<Game> getAllGames();
+    void init(GameRepositoryConfiguration configuration, GameLocator gameLocator, GameLoader gameLoader);
+    List<GameDescriptor> getAllGameDescriptors();
     Game getGameById(String id);
 
 }
