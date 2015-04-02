@@ -1,12 +1,10 @@
-package com.epam.jmp.gamebox.impl;
-
-import com.epam.jmp.gamebox.GameRepositoryConfiguration;
+package com.epam.jmp.gamebox.deploy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SystemPropertiesGameRepositoryConfiguration implements GameRepositoryConfiguration {
+public class SystemPropertiesGameDeployerConfiguration implements GameDeployerConfiguration {
 
     public static final String SYSTEM_PROPERTY_PREFIX_GAME_REPOSITORY_PROPERTIES = "GR.";
 

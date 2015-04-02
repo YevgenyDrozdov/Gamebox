@@ -1,18 +1,17 @@
 package com.epam.jmp.gamebox;
 
-import com.epam.jmp.gamebox.impl.SystemPropertiesGameRepositoryConfiguration;
+import com.epam.jmp.gamebox.deploy.SystemPropertiesGameDeployerConfiguration;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import java.util.*;
 
 public class SystemPropertiesGameRepositoryConfigurationTest {
 
-    private SystemPropertiesGameRepositoryConfiguration configuration;
+    private SystemPropertiesGameDeployerConfiguration configuration;
 
     private static final Map<String, String> properties = new HashMap<String, String>() {
         {
@@ -25,7 +24,7 @@ public class SystemPropertiesGameRepositoryConfigurationTest {
     @Before
     public void initializeSystemProperties() {
         addToSystemProperties();
-        configuration = new SystemPropertiesGameRepositoryConfiguration();
+        configuration = new SystemPropertiesGameDeployerConfiguration();
     }
 
     @Test
@@ -53,7 +52,7 @@ public class SystemPropertiesGameRepositoryConfigurationTest {
 
     private void addToSystemProperties() {
         for (Map.Entry<String, String> entry : properties.entrySet()) {
-            System.setProperty(SystemPropertiesGameRepositoryConfiguration.SYSTEM_PROPERTY_PREFIX_GAME_REPOSITORY_PROPERTIES
+            System.setProperty(SystemPropertiesGameDeployerConfiguration.SYSTEM_PROPERTY_PREFIX_GAME_REPOSITORY_PROPERTIES
                 + entry.getKey(), entry.getValue());
         }
     }

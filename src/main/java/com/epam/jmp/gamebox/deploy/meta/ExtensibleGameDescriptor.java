@@ -1,4 +1,4 @@
-package com.epam.jmp.gamebox.metainformation;
+package com.epam.jmp.gamebox.deploy.meta;
 
 import com.epam.jmp.gamebox.GameDescriptor;
 
@@ -6,12 +6,8 @@ public class ExtensibleGameDescriptor implements GameDescriptor {
 
     private GameDescriptor wrappedGameDescriptor;
 
-    public ExtensibleGameDescriptor(GameDescriptor wrappedGameDescriptor) {
+    protected ExtensibleGameDescriptor(GameDescriptor wrappedGameDescriptor) {
         this.wrappedGameDescriptor = wrappedGameDescriptor;
-    }
-
-    @Override
-    public String getGameId() {
     }
 
     @Override
@@ -27,6 +23,16 @@ public class ExtensibleGameDescriptor implements GameDescriptor {
     @Override
     public String getControllerClass() {
         return wrappedGameDescriptor.getControllerClass();
+    }
+
+    @Override
+    public ClassLoader getGameClassLoader() {
+        return wrappedGameDescriptor.getGameClassLoader();
+    }
+
+    @Override
+    public void setGameClassLoader(ClassLoader classLoader) {
+        wrappedGameDescriptor.setGameClassLoader(classLoader);
     }
 
     protected GameDescriptor getWrappedGameDescriptor() {

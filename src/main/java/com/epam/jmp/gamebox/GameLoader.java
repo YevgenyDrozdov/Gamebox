@@ -1,8 +1,7 @@
 package com.epam.jmp.gamebox;
 
-public interface GameLoader<T> {
+public interface GameLoader {
 
     Game loadGame(GameDescriptor descriptor);
-    GameDescriptor getGameDescriptor(T item);
 
 }

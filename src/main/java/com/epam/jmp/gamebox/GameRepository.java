@@ -1,11 +1,10 @@
 package com.epam.jmp.gamebox;
 
-import java.util.List;
+import java.util.Map;
 
 public interface GameRepository {
 
-    void init(GameRepositoryConfiguration configuration, GameLocator gameLocator, GameLoader gameLoader);
-    List<GameDescriptor> getAllGameDescriptors();
-    Game getGameById(String id);
+    String addDeployedGame(GameDescriptor gameDescriptor);
+    Map<String, GameDescriptor> getAllDeployedGames();
 
 }

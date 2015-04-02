@@ -1,10 +1,8 @@
 package com.epam.jmp.gamebox;
 
-public interface GameDescriptor {
+public interface GameDescriptor extends GameManifest {
 
-    String getGameId();
-    String getGameName();
-    String getGameVersion();
-    String getControllerClass();
+    ClassLoader getGameClassLoader();
+    void setGameClassLoader(ClassLoader classLoader);
 
 }

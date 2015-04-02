@@ -1,12 +1,12 @@
-package com.epam.jmp.gamebox.metainformation;
+package com.epam.jmp.gamebox.deploy.meta;
 
-import com.epam.jmp.gamebox.GameDescriptor;
+import com.epam.jmp.gamebox.GameManifest;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "manifest")
-public class XmlManifestGameDescriptor implements GameDescriptor {
+public class XmlGameManifest implements GameManifest {
 
     private String gameName;
     private String gameVersion;
