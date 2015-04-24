@@ -1,4 +1,6 @@
-package com.epam.jmp.gamebox.web.action;
+package com.epam.jmp.gamebox.web.action.dispatcher;
+
+import com.epam.jmp.gamebox.web.action.handler.ActionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,13 +9,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class RESTActionDispatcher implements ActionDispatcher {
+public class RESTActionDispatcher extends ActionDispatcherWithFiltering {
 
     private MappingNode mappingTree = new MappingNode("/");
 
     @Override
-    public void dispatch(HttpServletRequest request, HttpServletResponse response) {
-        String query = request.getServletPath();
+    protected void dispatchAction(HttpServletRequest request, HttpServletResponse response) {
+        String query = getRestQuery(request);
 
         Pair<ActionHandler, Map<String, String>> handlerPair = getActionByMapping(query);
 
@@ -21,9 +23,31 @@ public class RESTActionDispatcher implements ActionDispatcher {
             ActionHandler handler = handlerPair.getA();
 
             if (handler != null) {
+
+                Map<String, String> requestAttributes = handlerPair.getB();
+
+                for (Map.Entry<String, String> attributeEntry : requestAttributes.entrySet()) {
+                    String key = attributeEntry.getKey();
+                    String value = attributeEntry.getValue();
+
+                    request.setAttribute(key, value);
+                }
+
                 handler.handle(request, response);
             }
         }
+    }
+
+    @Override
+    protected boolean canDispatchAction(HttpServletRequest request, HttpServletResponse response) {
+        String query = getRestQuery(request);
+
+        Pair<ActionHandler, Map<String, String>> handlerPair = getActionByMapping(query);
+        if (handlerPair == null) {
+            return false;
+        }
+
+        return true;
     }
 
     public void mapAction(String queryPattern, ActionHandler actionHandler) {
@@ -87,13 +111,29 @@ public class RESTActionDispatcher implements ActionDispatcher {
             }
 
             if (nodeForElement instanceof VariableValueNode) {
-                resolvedPlaceholders.put(((VariableValueNode)nodeForElement).getPlaceholderName(), nodeValue);
+                resolvedPlaceholders.put(((VariableValueNode) nodeForElement).getPlaceholderName(), nodeValue);
             }
 
             currentNode = nodeForElement;
         }
 
         return new Pair<ActionHandler, Map<String, String>>(currentNode.getLinkedActionHandler(), resolvedPlaceholders);
+    }
+
+    protected String getRestQuery(HttpServletRequest req) {
+        String webAppContext = req.getContextPath();
+        String servletPath = req.getServletPath();
+        String requestUri = req.getRequestURI();
+
+        if (requestUri.startsWith(webAppContext)) {
+            requestUri = requestUri.substring(webAppContext.length());
+        }
+
+        if (requestUri.startsWith(servletPath)) {
+            requestUri = requestUri.substring(servletPath.length());
+        }
+
+        return requestUri;
     }
 
     private String normalizeQuery(String query) {

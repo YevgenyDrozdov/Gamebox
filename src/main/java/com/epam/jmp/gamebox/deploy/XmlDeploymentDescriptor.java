@@ -1,19 +1,41 @@
 package com.epam.jmp.gamebox.deploy;
 
+import com.epam.jmp.gamebox.DeploymentId;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "deployment")
 public class XmlDeploymentDescriptor implements DeploymentDescriptor {
 
-    private String deploymentTime;
+    private Long deploymentTime;
+    private ClassLoader classloader;
+    private DeploymentId deploymentId;
 
-    @XmlElement(name = "time")
-    public String getDeploymentTime() {
+    @XmlElement(name = "time", type = Long.class)
+    public Long getDeploymentTime() {
         return deploymentTime;
     }
 
-    public void setDeploymentTime(String deploymentTime) {
+    public void setDeploymentTime(Long deploymentTime) {
         this.deploymentTime = deploymentTime;
+    }
+
+    @Override
+    public DeploymentId getDeploymentId() {
+        return deploymentId;
+    }
+
+    public void setDeploymentId(DeploymentId deploymentId) {
+        this.deploymentId = deploymentId;
+    }
+
+    @Override
+    public ClassLoader getGameClassLoader() {
+        return classloader;
+    }
+
+    public void setGameClassLoader(ClassLoader classLoader) {
+        this.classloader = classLoader;
     }
 }

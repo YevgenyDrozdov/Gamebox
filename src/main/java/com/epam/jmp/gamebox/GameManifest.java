@@ -5,5 +5,6 @@ public interface GameManifest {
     String getGameName();
     String getGameVersion();
     String getControllerClass();
+    String getMiniaturePath();
 
 }

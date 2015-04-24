@@ -2,6 +2,6 @@ package com.epam.jmp.gamebox;
 
 public interface GameIdGenerator {
 
-    String generateId(GameDescriptor descriptor);
+    String generateId(Game game);
 
 }

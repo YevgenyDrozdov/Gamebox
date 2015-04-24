@@ -1,5 +1,6 @@
-package com.epam.jmp.gamebox.web.action;
+package com.epam.jmp.gamebox.web.action.dispatcher;
 
+import com.epam.jmp.gamebox.web.action.handler.ActionHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
-import com.epam.jmp.gamebox.web.action.RESTActionDispatcher.Pair;
+import com.epam.jmp.gamebox.web.action.dispatcher.RESTActionDispatcher.Pair;
 
 public class RESTActionHandlerDispatcherTest {
 

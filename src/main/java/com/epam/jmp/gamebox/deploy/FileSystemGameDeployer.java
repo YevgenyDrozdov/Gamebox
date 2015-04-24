@@ -4,6 +4,7 @@ import com.epam.jmp.gamebox.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +24,8 @@ public class FileSystemGameDeployer implements GameDeployer {
     }
 
     @Override
-    public List<GameDescriptor> deployAllGames() {
-
-        List<GameDescriptor> gameDescriptors = new ArrayList<GameDescriptor>();
+    public List<DeploymentDescriptor> refreshDeployments() {
+        List<DeploymentDescriptor> deploymentDescriptors = new ArrayList<DeploymentDescriptor>();
 
         File gamesRoot = getRepositoryFileSystemPath();
         File[] files = gamesRoot.listFiles();
@@ -34,11 +34,17 @@ public class FileSystemGameDeployer implements GameDeployer {
             GameDistributionItem distributionItem = gameDistributionItemFactory.createGameDistributionItem(file);
             if (distributionItem != null) {
                 DeployAssistant deployAssistant = deployAssistants.get(distributionItem.getDistributionType());
-                gameDescriptors.add(deployAssistant.deploy(distributionItem));
+                DeploymentDescriptor gameDescriptor = deployAssistant.deploy(distributionItem);
+                deploymentDescriptors.add(gameDescriptor);
             }
         }
 
-        return gameDescriptors;
+        return deploymentDescriptors;
+    }
+
+    @Override
+    public void undeploy(DeploymentDescriptor deploymentDescriptor) {
+
     }
 
     public Map<GameDistributionType, DeployAssistant> getDeployAssistants() {

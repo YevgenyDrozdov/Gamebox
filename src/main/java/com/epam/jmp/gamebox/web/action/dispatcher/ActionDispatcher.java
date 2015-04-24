@@ -1,4 +1,4 @@
-package com.epam.jmp.gamebox.web.action;
+package com.epam.jmp.gamebox.web.action.dispatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

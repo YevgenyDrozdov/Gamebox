@@ -1,8 +1,9 @@
 package com.epam.jmp.gamebox;
 
+import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
+
 public interface GameDescriptor extends GameManifest {
 
-    ClassLoader getGameClassLoader();
-    void setGameClassLoader(ClassLoader classLoader);
+    DeploymentDescriptor getDeploymentDescriptor();
 
 }

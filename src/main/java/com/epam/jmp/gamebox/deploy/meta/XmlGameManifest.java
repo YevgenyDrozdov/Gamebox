@@ -11,6 +11,7 @@ public class XmlGameManifest implements GameManifest {
     private String gameName;
     private String gameVersion;
     private String controllerClass;
+    private String miniaturePath;
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
@@ -37,5 +38,14 @@ public class XmlGameManifest implements GameManifest {
     @XmlElement(name = "controller-class")
     public String getControllerClass() {
         return controllerClass;
+    }
+
+    @XmlElement(name = "miniature-path")
+    public String getMiniaturePath() {
+        return miniaturePath;
+    }
+
+    public void setMiniaturePath(String miniaturePath) {
+        this.miniaturePath = miniaturePath;
     }
 }

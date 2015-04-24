@@ -1,5 +1,6 @@
-package com.epam.jmp.gamebox;
+package com.epam.jmp.gamebox.war.deploy;
 
+import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 import com.epam.jmp.gamebox.war.deploy.WarGameDeployAssistant;
 import com.epam.jmp.gamebox.war.deploy.WarGameDistributionItem;
 import com.epam.jmp.gamebox.war.deploy.WarXmlDeploymentDescriptorLocator;
@@ -24,11 +25,11 @@ public class WarGameDeployAssistantTest {
         WarXmlDeploymentDescriptorLocator xmlDeploymentDescriptorLocator = new WarXmlDeploymentDescriptorLocator();
         WarGameDeployAssistant assistant = new WarGameDeployAssistant(xmlDeploymentDescriptorLocator);
 
-        GameDescriptor descriptor = assistant.deploy(distributionItem);
+        DeploymentDescriptor descriptor = assistant.deploy(distributionItem);
 
-        Assert.assertTrue(descriptor.getGameName() != null);
-        Assert.assertTrue(descriptor.getGameVersion() != null);
-        Assert.assertTrue(descriptor.getControllerClass() != null);
+        Assert.assertTrue(descriptor.getDeploymentId() != null);
+        Assert.assertTrue(descriptor.getDeploymentTime() != null);
+        Assert.assertTrue(descriptor.getGameClassLoader() != null);
     }
 
 }

@@ -1,13 +1,15 @@
 package com.epam.jmp.gamebox.deploy.meta;
 
 
+import com.epam.jmp.gamebox.DeploymentId;
 import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.GameManifest;
+import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 
 public class ManifestBasedGameDescriptor implements GameDescriptor {
 
     private GameManifest manifest;
-    private ClassLoader classLoader;
+    private DeploymentDescriptor deploymentDescriptor;
 
     public ManifestBasedGameDescriptor(GameManifest manifest) {
         this.manifest = manifest;
@@ -29,11 +31,16 @@ public class ManifestBasedGameDescriptor implements GameDescriptor {
     }
 
     @Override
-    public ClassLoader getGameClassLoader() {
-        return classLoader;
+    public String getMiniaturePath() {
+        return manifest.getMiniaturePath();
     }
 
-    public void setGameClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
+    @Override
+    public DeploymentDescriptor getDeploymentDescriptor() {
+        return deploymentDescriptor;
+    }
+
+    public void setDeploymentDescriptor(DeploymentDescriptor deploymentDescriptor) {
+        this.deploymentDescriptor = deploymentDescriptor;
     }
 }

@@ -16,6 +16,10 @@ public final class FileUtils {
     private FileUtils() {
     }
 
+    public static void removeDirectory(File directory) {
+        directory.delete();
+    }
+
     public static void unzip(File item, File destination) {
         try {
             ZipFile zipFile = new ZipFile(item);

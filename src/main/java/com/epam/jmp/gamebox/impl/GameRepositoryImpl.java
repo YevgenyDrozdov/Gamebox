@@ -1,6 +1,6 @@
 package com.epam.jmp.gamebox.impl;
 
-import com.epam.jmp.gamebox.GameDescriptor;
+import com.epam.jmp.gamebox.Game;
 import com.epam.jmp.gamebox.GameIdGenerator;
 import com.epam.jmp.gamebox.GameRepository;
 
@@ -9,47 +9,68 @@ import java.util.Map;
 
 public class GameRepositoryImpl implements GameRepository {
 
-    private Map<String, GameDescriptor> deployedGames = new HashMap<String, GameDescriptor>();
+    private Map<String, Game> games = new HashMap<String, Game>();
     private GameIdGenerator gameIdGenerator;
+
+    public GameRepositoryImpl() {
+        this.gameIdGenerator = new GameIdGeneratorImpl();
+    }
 
     public GameRepositoryImpl(GameIdGenerator gameIdGenerator) {
         this.gameIdGenerator = gameIdGenerator;
     }
 
     @Override
-    public String addDeployedGame(GameDescriptor gameDescriptor) {
-        String gameId = getGameIdByDescriptor(gameDescriptor);
+    public String addGame(Game game) {
+        String gameId = getGameId(game);
 
         if (gameId == null) {
-            gameId = getGameIdGenerator().generateId(gameDescriptor);
+            gameId = getGameIdGenerator().generateId(game);
 
-            deployedGames.put(gameId, gameDescriptor);
+            addGame(game, gameId);
         }
 
         return gameId;
     }
 
     @Override
-    public Map<String, GameDescriptor> getAllDeployedGames() {
-        return deployedGames;
+    public String addGame(Game game, String gameId) {
+        games.put(gameId, game);
+        return gameId;
+    }
+
+    @Override
+    public Game getGameById(String gameId) {
+        return games.get(gameId);
+    }
+
+    @Override
+    public Map<String, Game> getAllGames() {
+        return games;
+    }
+
+    @Override
+    public Game removeGame(String gameId) {
+        return games.remove(gameId);
     }
 
     public GameIdGenerator getGameIdGenerator() {
         return gameIdGenerator;
     }
 
-    public void setGameIdGenerator(GameIdGenerator gameIdGenerator) {
-        this.gameIdGenerator = gameIdGenerator;
-    }
-
-    private String getGameIdByDescriptor(GameDescriptor descriptor) {
-        for (Map.Entry<String, GameDescriptor> entry : deployedGames.entrySet()) {
+    @Override
+    public String getGameId(Game descriptor) {
+        for (Map.Entry<String, Game> entry : games.entrySet()) {
             if (descriptor == entry.getValue()) {
                 return entry.getKey();
             }
         }
 
         return null;
+    }
+
+    public void setGameIdGenerator(GameIdGenerator gameIdGenerator) {
+        this.gameIdGenerator = gameIdGenerator;
     }
 
 }

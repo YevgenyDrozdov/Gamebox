@@ -47,7 +47,7 @@ public class WarGameClassLoaderBuilder {
             }
         }
 
-        return new URLClassLoader(gameBinariesPaths.toArray(new URL[0]));
+        return new URLClassLoader(gameBinariesPaths.toArray(new URL[0]), this.getClass().getClassLoader());
     }
 
 }
