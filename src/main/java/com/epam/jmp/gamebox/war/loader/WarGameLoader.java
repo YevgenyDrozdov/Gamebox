@@ -1,5 +1,6 @@
 package com.epam.jmp.gamebox.war.loader;
 
+import com.epam.jmp.gamebox.Controller;
 import com.epam.jmp.gamebox.Game;
 import com.epam.jmp.gamebox.GameLoader;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
@@ -8,8 +9,11 @@ import com.epam.jmp.gamebox.deploy.meta.XmlGameManifest;
 import com.epam.jmp.gamebox.impl.GameImpl;
 import com.epam.jmp.gamebox.util.FileUtils;
 import com.epam.jmp.gamebox.war.deploy.WarDeploymentDescriptor;
+import org.reflections.Reflections;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
 
 public class WarGameLoader implements GameLoader {
 
