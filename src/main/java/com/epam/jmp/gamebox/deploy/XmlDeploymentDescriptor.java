@@ -31,11 +31,11 @@ public class XmlDeploymentDescriptor implements DeploymentDescriptor {
     }
 
     @Override
-    public ClassLoader getGameClassLoader() {
+    public ClassLoader getClassLoader() {
         return classloader;
     }
 
-    public void setGameClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(ClassLoader classLoader) {
         this.classloader = classLoader;
     }
 }

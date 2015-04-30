@@ -1,46 +1,24 @@
 package com.epam.jmp.gamebox.deploy.meta;
 
-
-import com.epam.jmp.gamebox.DeploymentId;
 import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.GameManifest;
-import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 
-public class ManifestBasedGameDescriptor implements GameDescriptor {
-
-    private GameManifest manifest;
-    private DeploymentDescriptor deploymentDescriptor;
+public class ManifestBasedGameDescriptor extends GameDescriptorImpl {
 
     public ManifestBasedGameDescriptor(GameManifest manifest) {
-        this.manifest = manifest;
+        initializeFromManifest(manifest);
     }
 
-    @Override
-    public String getGameName() {
-        return manifest.getGameName();
+    public ManifestBasedGameDescriptor(GameDescriptor parentGameDescriptor, GameManifest manifest) {
+        super(parentGameDescriptor);
+        initializeFromManifest(manifest);
     }
 
-    @Override
-    public String getGameVersion() {
-        return manifest.getGameVersion();
+    protected void initializeFromManifest(GameManifest manifest) {
+        setGameName(manifest.getGameName());
+        setGameVersion(manifest.getGameVersion());
+        setControllerClass(manifest.getControllerClass());
+        setMiniaturePath(manifest.getMiniaturePath());
     }
 
-    @Override
-    public String getControllerClass() {
-        return manifest.getControllerClass();
-    }
-
-    @Override
-    public String getMiniaturePath() {
-        return manifest.getMiniaturePath();
-    }
-
-    @Override
-    public DeploymentDescriptor getDeploymentDescriptor() {
-        return deploymentDescriptor;
-    }
-
-    public void setDeploymentDescriptor(DeploymentDescriptor deploymentDescriptor) {
-        this.deploymentDescriptor = deploymentDescriptor;
-    }
 }

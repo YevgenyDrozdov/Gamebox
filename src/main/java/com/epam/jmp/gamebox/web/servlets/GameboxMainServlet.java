@@ -1,17 +1,14 @@
 package com.epam.jmp.gamebox.web.servlets;
 
 import com.epam.jmp.gamebox.*;
-import com.epam.jmp.gamebox.deploy.*;
-import com.epam.jmp.gamebox.impl.*;
-import com.epam.jmp.gamebox.war.deploy.WarGameDeployAssistant;
-import com.epam.jmp.gamebox.war.deploy.WarXmlDeploymentDescriptorLocator;
-import com.epam.jmp.gamebox.war.loader.WarGameLoader;
 import com.epam.jmp.gamebox.web.action.dispatcher.ActionDispatcher;
 import com.epam.jmp.gamebox.web.action.handler.ActionHandler;
 import com.epam.jmp.gamebox.web.action.dispatcher.RESTActionDispatcher;
 import com.epam.jmp.gamebox.web.action.handler.GameActionRouterActionHandler;
 import com.epam.jmp.gamebox.web.action.handler.GetGameMiniatureActionHandler;
 import com.epam.jmp.gamebox.web.action.handler.StartGameActionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,18 +17,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(name = "GameboxMainServlet", urlPatterns = "/rest/*")
 public class GameboxMainServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameboxMainServlet.class);
+
     private ActionDispatcher dispatcher;
 
     public GameboxMainServlet() {
+        LOGGER.debug("Starting Gamebox main servlet.");
+
         initializeActionDispatcher();
         GameboxContext.getInstance().getGameService().refreshDeployments();
+
+        LOGGER.debug("Gamebox main servlet has started.");
     }
 
     @Override
@@ -45,6 +46,9 @@ public class GameboxMainServlet extends HttpServlet {
     }
 
     private void initializeActionDispatcher() {
+
+        LOGGER.debug("Initializing action dispatcher.");
+
         RESTActionDispatcher restDispatcher = new RESTActionDispatcher();
         restDispatcher.mapAction("/", new ActionHandler() {
             @Override

@@ -1,7 +1,6 @@
 package com.epam.jmp.gamebox.web.action.handler;
 
 import com.epam.jmp.gamebox.Game;
-import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.GameboxContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ public class GetGameMiniatureActionHandler implements ActionHandler {
 
         Game game = GameboxContext.getInstance().getGameService().getDeployedGameById(gameId);
         String miniaturePath = game.getDescriptor().getMiniaturePath();
-        InputStream in = game.getDescriptor().getDeploymentDescriptor().getGameClassLoader().getResourceAsStream(miniaturePath);
+        InputStream in = game.getDescriptor().getDeploymentDescriptor().getClassLoader().getResourceAsStream(miniaturePath);
 
         try {
             OutputStream out = response.getOutputStream();

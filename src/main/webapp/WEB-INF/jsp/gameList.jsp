@@ -13,9 +13,17 @@
 
         <div id="deployed-games">
         <c:forEach items="${games}" var="gameEntry">
-            <div class="deployed-game">
-                <c:out value="${gameEntry.key}" />:<c:out value="${gameEntry.value.descriptor.gameName}" />
-                <img src="<c:url value='/rest/miniature/${gameEntry.key}' />" />
+            <div class="deployed-game" style="background-image: url('<c:url value='/rest/miniature/${gameEntry.key}' />')">
+                <div class="game-description">
+                    <ul>
+                        <li>Id: <b><c:out value="${gameEntry.key}" /></b></li>
+                        <li>Name: <c:out value="${gameEntry.value.descriptor.gameName}" /></li>
+                        <li>Version: <c:out value="${gameEntry.value.descriptor.gameVersion}" /></li>
+                        <li>Controller class: <c:out value="${gameEntry.value.descriptor.controllerClass}" /></li>
+                        <li>Miniature path: <c:out value="${gameEntry.value.descriptor.miniaturePath}" /></li>
+                    </ul>
+                </div>
+                <div class="start-button"></div>
             </div>
         </c:forEach>
         </div>

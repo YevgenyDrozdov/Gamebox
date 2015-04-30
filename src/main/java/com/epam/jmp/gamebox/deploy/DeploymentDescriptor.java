@@ -10,7 +10,7 @@ public interface DeploymentDescriptor {
     DeploymentId getDeploymentId();
     void setDeploymentId(DeploymentId deploymentId);
 
-    ClassLoader getGameClassLoader();
-    void setGameClassLoader(ClassLoader classLoader);
+    ClassLoader getClassLoader();
+    void setClassLoader(ClassLoader classLoader);
 
 }

@@ -1,9 +1,6 @@
 package com.epam.jmp.gamebox.war.deploy;
 
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
-import com.epam.jmp.gamebox.war.deploy.WarGameDeployAssistant;
-import com.epam.jmp.gamebox.war.deploy.WarGameDistributionItem;
-import com.epam.jmp.gamebox.war.deploy.WarXmlDeploymentDescriptorLocator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +26,7 @@ public class WarGameDeployAssistantTest {
 
         Assert.assertTrue(descriptor.getDeploymentId() != null);
         Assert.assertTrue(descriptor.getDeploymentTime() != null);
-        Assert.assertTrue(descriptor.getGameClassLoader() != null);
+        Assert.assertTrue(descriptor.getClassLoader() != null);
     }
 
 }

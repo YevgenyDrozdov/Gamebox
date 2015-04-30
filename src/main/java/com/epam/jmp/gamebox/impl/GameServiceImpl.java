@@ -13,6 +13,7 @@ import java.util.Map;
 public class GameServiceImpl implements GameService {
 
     private GameRepository deployedGameRepository;
+    private DeploymentRepository deploymentRepository;
     private GameRepository instantiatedGameRepository;
     private GameDeployer gameDeployer;
     private GameLoader gameLoader;
@@ -20,11 +21,13 @@ public class GameServiceImpl implements GameService {
     public GameServiceImpl(GameRepository deployedGameRepository,
                            GameRepository instantiatedGameRepository,
                            GameDeployer gameDeployer,
-                           GameLoader gameLoader) {
+                           GameLoader gameLoader,
+                           DeploymentRepository deploymentRepository) {
         this.deployedGameRepository = deployedGameRepository;
         this.instantiatedGameRepository = instantiatedGameRepository;
         this.gameDeployer = gameDeployer;
         this.gameLoader = gameLoader;
+        this.deploymentRepository = deploymentRepository;
     }
 
     @Override
@@ -60,6 +63,8 @@ public class GameServiceImpl implements GameService {
         for (DeploymentDescriptor descriptor : deployedGames) {
             Game game = gameLoader.loadGame(descriptor);
             deployedGameRepository.addGame(game);
+
+            deploymentRepository.addDeployment(descriptor);
         }
     }
 

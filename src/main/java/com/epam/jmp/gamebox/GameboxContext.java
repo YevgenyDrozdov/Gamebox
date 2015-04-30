@@ -1,10 +1,8 @@
 package com.epam.jmp.gamebox;
 
 import com.epam.jmp.gamebox.deploy.*;
-import com.epam.jmp.gamebox.impl.GameRepositoryImpl;
-import com.epam.jmp.gamebox.impl.GameIdGeneratorImpl;
-import com.epam.jmp.gamebox.impl.GameServiceImpl;
-import com.epam.jmp.gamebox.impl.LoadedGameRepositoryImpl;
+import com.epam.jmp.gamebox.impl.*;
+import com.epam.jmp.gamebox.services.DeploymentService;
 import com.epam.jmp.gamebox.services.GameService;
 import com.epam.jmp.gamebox.war.deploy.WarGameDeployAssistant;
 import com.epam.jmp.gamebox.war.deploy.WarXmlDeploymentDescriptorLocator;
@@ -17,16 +15,20 @@ public final class GameboxContext {
 
     private GameRepository deployedGameRepository;
     private GameRepository instantiatedGameRepository;
+    private DeploymentRepository deploymentRepository;
     private GameDeployer gameDeployer;
     private GameLoader gameLoader;
     private GameService gameService;
+    private DeploymentService deploymentService;
 
     private GameboxContext() {
         initializeDeployedGameRepository();
         initializeLoadedGameRepository();
+        initializeDeploymentRepository();
         initializeGameDeployer();
         initializeGameLoader();
         initializeGameService();
+        initializeDeploymentService();
     }
 
     public static GameboxContext getInstance() {
@@ -37,12 +39,20 @@ public final class GameboxContext {
         return gameService;
     }
 
+    public DeploymentService getDeploymentService() {
+        return deploymentService;
+    }
+
     private void initializeDeployedGameRepository() {
         deployedGameRepository = new GameRepositoryImpl(new GameIdGeneratorImpl());
     }
 
     private void initializeLoadedGameRepository() {
         instantiatedGameRepository = new GameRepositoryImpl();
+    }
+
+    private void initializeDeploymentRepository() {
+        deploymentRepository = new DeploymentRepositoryImpl();
     }
 
     private void initializeGameLoader() {
@@ -66,7 +76,12 @@ public final class GameboxContext {
     }
 
     private void initializeGameService() {
-        gameService = new GameServiceImpl(deployedGameRepository, instantiatedGameRepository, gameDeployer, gameLoader);
+        gameService = new GameServiceImpl(deployedGameRepository, instantiatedGameRepository, gameDeployer, gameLoader,
+                deploymentRepository);
+    }
+
+    private void initializeDeploymentService() {
+        deploymentService = new DeploymentServiceImpl(deploymentRepository);
     }
 
     private static class InstanceHolder {

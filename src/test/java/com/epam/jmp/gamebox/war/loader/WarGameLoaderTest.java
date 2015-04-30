@@ -43,7 +43,7 @@ public class WarGameLoaderTest {
         Assert.assertTrue("Deployment descriptor of the game must be equal to original deployment descriptor.",
                 deploymentDescriptor.getDeploymentId().getId().equals(loadedGameDeploymentDescriptor.getDeploymentId().getId())
                     && deploymentDescriptor.getDeploymentTime() == loadedGameDeploymentDescriptor.getDeploymentTime()
-                    && deploymentDescriptor.getGameClassLoader() == loadedGameDeploymentDescriptor.getGameClassLoader());
+                    && deploymentDescriptor.getClassLoader() == loadedGameDeploymentDescriptor.getClassLoader());
 
     }
 

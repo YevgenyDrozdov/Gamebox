@@ -1,13 +1,8 @@
 package com.epam.jmp.gamebox.util;
 
-import com.epam.jmp.gamebox.deploy.meta.XmlGameManifest;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
@@ -77,27 +72,4 @@ public final class FileUtils {
         return null;
     }
 
-    public static <T> T unmarshalXml(File xmlFile, Class<T> clazz) {
-        JAXBContext jaxbContext = null;
-        try {
-            jaxbContext = JAXBContext.newInstance(clazz);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (T)unmarshaller.unmarshal(xmlFile);
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-
-        throw new RuntimeException();
-    }
-
-    public static <T> void marshalXml(File xmlFile, Class<T> clazz, T obj) {
-        JAXBContext jaxbContext = null;
-        try {
-            jaxbContext = JAXBContext.newInstance(clazz);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.marshal(obj, xmlFile);
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

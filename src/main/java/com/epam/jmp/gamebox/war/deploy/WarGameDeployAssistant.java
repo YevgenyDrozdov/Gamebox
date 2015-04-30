@@ -1,16 +1,14 @@
 package com.epam.jmp.gamebox.war.deploy;
 
 import com.epam.jmp.gamebox.DeploymentId;
-import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.deploy.DeployAssistant;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 import com.epam.jmp.gamebox.deploy.XmlDeploymentDescriptor;
-import com.epam.jmp.gamebox.deploy.meta.XmlGameManifest;
 import com.epam.jmp.gamebox.util.FileUtils;
+import com.epam.jmp.gamebox.util.XmlUtils;
 import com.epam.jmp.gamebox.war.loader.WarGameClassLoaderBuilder;
 
 import java.io.File;
-import java.util.Calendar;
 
 public class WarGameDeployAssistant implements DeployAssistant<WarGameDistributionItem> {
 
@@ -24,7 +22,6 @@ public class WarGameDeployAssistant implements DeployAssistant<WarGameDistributi
     public DeploymentDescriptor deploy(WarGameDistributionItem distributionItem) {
 
         File warFile = distributionItem.getItem();
-
         File unpackedWar = new File(warFile.getParent(), FileUtils.trimExtension(warFile.getName()));
 
         WarDeploymentDescriptor deploymentDescriptor = null;
@@ -42,7 +39,7 @@ public class WarGameDeployAssistant implements DeployAssistant<WarGameDistributi
         }
 
         deploymentDescriptor.setDeploymentId(new DeploymentId(Long.toString(deploymentDescriptor.getDeploymentTime())));
-        deploymentDescriptor.setGameClassLoader(new WarGameClassLoaderBuilder(unpackedWar).build());
+        deploymentDescriptor.setClassLoader(new WarGameClassLoaderBuilder(unpackedWar).build());
         deploymentDescriptor.setUnpackedWar(unpackedWar.getAbsolutePath());
 
         return deploymentDescriptor;
@@ -54,14 +51,14 @@ public class WarGameDeployAssistant implements DeployAssistant<WarGameDistributi
         deploymentDescriptor.setDeploymentTime(distributionItem.getItem().lastModified());
 
         File deploymentDescriptorLocation = deploymentDescriptorLocator.getDeploymentDescriptorLocation(distributionItem);
-        FileUtils.marshalXml(deploymentDescriptorLocation, XmlDeploymentDescriptor.class, deploymentDescriptor);
+        XmlUtils.marshalXml(deploymentDescriptorLocation, XmlDeploymentDescriptor.class, deploymentDescriptor);
 
         return new WarDeploymentDescriptor(deploymentDescriptor);
     }
 
     private WarDeploymentDescriptor readDeploymentDescriptor(WarGameDistributionItem distributionItem) {
         File deploymentDescriptorLocation = deploymentDescriptorLocator.getDeploymentDescriptorLocation(distributionItem);
-        DeploymentDescriptor xmlDeploymentDescriptor = FileUtils.unmarshalXml(deploymentDescriptorLocation, XmlDeploymentDescriptor.class);
+        DeploymentDescriptor xmlDeploymentDescriptor = XmlUtils.unmarshalXml(deploymentDescriptorLocation, XmlDeploymentDescriptor.class);
         return new WarDeploymentDescriptor(xmlDeploymentDescriptor);
     }
 

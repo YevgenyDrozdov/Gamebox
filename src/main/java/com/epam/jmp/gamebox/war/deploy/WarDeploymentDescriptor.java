@@ -33,13 +33,13 @@ public class WarDeploymentDescriptor implements DeploymentDescriptor {
     }
 
     @Override
-    public ClassLoader getGameClassLoader() {
-        return getWrappedDeploymentDescriptor().getGameClassLoader();
+    public ClassLoader getClassLoader() {
+        return getWrappedDeploymentDescriptor().getClassLoader();
     }
 
     @Override
-    public void setGameClassLoader(ClassLoader classLoader) {
-        getWrappedDeploymentDescriptor().setGameClassLoader(classLoader);
+    public void setClassLoader(ClassLoader classLoader) {
+        getWrappedDeploymentDescriptor().setClassLoader(classLoader);
     }
 
     public void setUnpackedWar(String unpackedWar) {

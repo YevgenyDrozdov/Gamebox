@@ -1,21 +1,20 @@
 package com.epam.jmp.gamebox.war.loader;
 
-import com.epam.jmp.gamebox.Controller;
 import com.epam.jmp.gamebox.Game;
+import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.GameLoader;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
-import com.epam.jmp.gamebox.deploy.meta.ManifestBasedGameDescriptor;
-import com.epam.jmp.gamebox.deploy.meta.XmlGameManifest;
+import com.epam.jmp.gamebox.deploy.meta.GameDescriptorImpl;
 import com.epam.jmp.gamebox.impl.GameImpl;
-import com.epam.jmp.gamebox.util.FileUtils;
+import com.epam.jmp.gamebox.loader.AnnotationGameDescriptorLoadAssistant;
+import com.epam.jmp.gamebox.loader.GameDescriptorLoadHelper;
 import com.epam.jmp.gamebox.war.deploy.WarDeploymentDescriptor;
-import org.reflections.Reflections;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.Set;
 
 public class WarGameLoader implements GameLoader {
+
+    public static final String MANIFEST_LOCATION = "\\META-INF\\manifest.xml";
 
     @Override
     public Game loadGame(DeploymentDescriptor descriptor) {
@@ -24,10 +23,9 @@ public class WarGameLoader implements GameLoader {
             WarDeploymentDescriptor warDeploymentDescriptor = (WarDeploymentDescriptor) descriptor;
 
             File unpackedWar = new File(warDeploymentDescriptor.getUnpackedWar());
-            File manifestFile = FileUtils.getChild(unpackedWar, "\\META-INF\\manifest.xml");
 
-            XmlGameManifest gameManifest = FileUtils.unmarshalXml(manifestFile, XmlGameManifest.class);
-            ManifestBasedGameDescriptor gameDescriptor = new ManifestBasedGameDescriptor(gameManifest);
+            GameDescriptorImpl gameDescriptor = new GameDescriptorImpl(loadGameDescriptor(unpackedWar.getAbsolutePath(),
+                    descriptor));
             gameDescriptor.setDeploymentDescriptor(descriptor);
 
             GameImpl game = new GameImpl();
@@ -36,7 +34,7 @@ public class WarGameLoader implements GameLoader {
             return game;
         }
 
-        /*ClassLoader gameClassLoader = descriptor.getGameClassLoader();
+        /*ClassLoader gameClassLoader = descriptor.getClassLoader();
         String controllerClassName = descriptor.getControllerClass();
 
         try {
@@ -58,6 +56,19 @@ public class WarGameLoader implements GameLoader {
         }*/
 
         throw new RuntimeException("Could not load the game");
+    }
+
+    protected GameDescriptor loadGameDescriptor(String unpackedWar, DeploymentDescriptor descriptor) {
+        GameDescriptorLoadHelper loadHelper = new GameDescriptorLoadHelper();
+
+        loadHelper.addLoadAssistant(new AnnotationGameDescriptorLoadAssistant(descriptor.getClassLoader()));
+
+        loadHelper.addLoadAssistant(new WarXmlManifestLoadAssistantBuilder()
+                .unpackedWarLocation(unpackedWar)
+                .manifestRelativePath(MANIFEST_LOCATION)
+                .build());
+
+        return loadHelper.loadGameDescriptor();
     }
 
 }
