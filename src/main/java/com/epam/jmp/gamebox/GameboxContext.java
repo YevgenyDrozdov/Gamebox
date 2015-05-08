@@ -2,6 +2,8 @@ package com.epam.jmp.gamebox;
 
 import com.epam.jmp.gamebox.deploy.*;
 import com.epam.jmp.gamebox.impl.*;
+import com.epam.jmp.gamebox.instantiator.DefaultGameInstantiator;
+import com.epam.jmp.gamebox.instantiator.GameInstantiator;
 import com.epam.jmp.gamebox.services.DeploymentService;
 import com.epam.jmp.gamebox.services.GameService;
 import com.epam.jmp.gamebox.war.deploy.WarGameDeployAssistant;
@@ -20,6 +22,7 @@ public final class GameboxContext {
     private GameLoader gameLoader;
     private GameService gameService;
     private DeploymentService deploymentService;
+    private GameInstantiator gameInstantiator;
 
     private GameboxContext() {
         initializeDeployedGameRepository();
@@ -27,6 +30,7 @@ public final class GameboxContext {
         initializeDeploymentRepository();
         initializeGameDeployer();
         initializeGameLoader();
+        initializeGameInstantiator();
         initializeGameService();
         initializeDeploymentService();
     }
@@ -77,11 +81,15 @@ public final class GameboxContext {
 
     private void initializeGameService() {
         gameService = new GameServiceImpl(deployedGameRepository, instantiatedGameRepository, gameDeployer, gameLoader,
-                deploymentRepository);
+                deploymentRepository, gameInstantiator);
     }
 
     private void initializeDeploymentService() {
         deploymentService = new DeploymentServiceImpl(deploymentRepository);
+    }
+
+    private void initializeGameInstantiator() {
+        gameInstantiator = new DefaultGameInstantiator();
     }
 
     private static class InstanceHolder {

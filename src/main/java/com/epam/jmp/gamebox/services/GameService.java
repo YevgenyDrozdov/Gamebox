@@ -8,6 +8,7 @@ public interface GameService {
     void refreshDeployments();
     Map<String, Game> getAllDeployedGames();
     Game getDeployedGameById(String gameId);
+    Game instantiateGame(String gameId);
     Game getInstantiatedGameById(String gameId);
 
 }

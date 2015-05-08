@@ -19,6 +19,8 @@ public class ManifestBasedGameDescriptor extends GameDescriptorImpl {
         setGameVersion(manifest.getGameVersion());
         setControllerClass(manifest.getControllerClass());
         setMiniaturePath(manifest.getMiniaturePath());
+        setJsResources(manifest.getJsResources());
+        setCssResources(manifest.getCssResources());
     }
 
 }

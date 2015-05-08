@@ -21,6 +21,11 @@ public class WarGameClassLoaderBuilder {
     public ClassLoader build() {
         List<URL> gameBinariesPaths = new ArrayList<URL>();
 
+        try {
+            gameBinariesPaths.add(rootFolder.toURI().toURL());
+        } catch (MalformedURLException e) {
+        }
+
         File libDirectory = FileUtils.getChild(rootFolder, "\\WEB-INF\\lib");
         if (libDirectory != null) {
 

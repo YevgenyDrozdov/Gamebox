@@ -34,27 +34,6 @@ public class WarGameLoader implements GameLoader {
             return game;
         }
 
-        /*ClassLoader gameClassLoader = descriptor.getClassLoader();
-        String controllerClassName = descriptor.getControllerClass();
-
-        try {
-            Class controllerClass = Class.forName(controllerClassName, true, gameClassLoader);
-
-            GameController controller = (GameController)controllerClass.newInstance();
-
-            GameImpl game = new GameImpl();
-            game.setController(controller);
-            game.setDescriptor(descriptor);
-
-            return game;
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }*/
-
         throw new RuntimeException("Could not load the game");
     }
 

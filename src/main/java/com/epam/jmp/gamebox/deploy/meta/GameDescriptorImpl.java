@@ -3,6 +3,8 @@ package com.epam.jmp.gamebox.deploy.meta;
 import com.epam.jmp.gamebox.GameDescriptor;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 
+import java.util.List;
+
 public class GameDescriptorImpl implements GameDescriptor {
 
     private GameDescriptor parent;
@@ -11,6 +13,8 @@ public class GameDescriptorImpl implements GameDescriptor {
     private String controllerClass;
     private String miniaturePath;
     private DeploymentDescriptor deploymentDescriptor;
+    private List<String> jsResources;
+    private List<String> cssResources;
 
     public GameDescriptorImpl() {
         parent = new EmptyParent();
@@ -65,6 +69,24 @@ public class GameDescriptorImpl implements GameDescriptor {
         return parent.getMiniaturePath();
     }
 
+    @Override
+    public List<String> getJsResources() {
+        if (jsResources != null) {
+            return jsResources;
+        }
+
+        return parent.getJsResources();
+    }
+
+    @Override
+    public List<String> getCssResources() {
+        if (cssResources != null) {
+            return cssResources;
+        }
+
+        return parent.getCssResources();
+    }
+
     public void setParent(GameDescriptor parent) {
         this.parent = parent;
     }
@@ -87,6 +109,14 @@ public class GameDescriptorImpl implements GameDescriptor {
 
     public void setDeploymentDescriptor(DeploymentDescriptor deploymentDescriptor) {
         this.deploymentDescriptor = deploymentDescriptor;
+    }
+
+    public void setJsResources(List<String> jsResources) {
+        this.jsResources = jsResources;
+    }
+
+    public void setCssResources(List<String> cssResources) {
+        this.cssResources = cssResources;
     }
 
     private static class EmptyParent implements GameDescriptor {
@@ -112,6 +142,16 @@ public class GameDescriptorImpl implements GameDescriptor {
 
         @Override
         public String getMiniaturePath() {
+            return null;
+        }
+
+        @Override
+        public List<String> getJsResources() {
+            return null;
+        }
+
+        @Override
+        public List<String> getCssResources() {
             return null;
         }
     }

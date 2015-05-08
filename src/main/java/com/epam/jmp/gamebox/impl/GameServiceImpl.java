@@ -3,6 +3,7 @@ package com.epam.jmp.gamebox.impl;
 import com.epam.jmp.gamebox.*;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 import com.epam.jmp.gamebox.deploy.GameDeployer;
+import com.epam.jmp.gamebox.instantiator.GameInstantiator;
 import com.epam.jmp.gamebox.services.GameService;
 
 import java.util.ArrayList;
@@ -17,17 +18,20 @@ public class GameServiceImpl implements GameService {
     private GameRepository instantiatedGameRepository;
     private GameDeployer gameDeployer;
     private GameLoader gameLoader;
+    private GameInstantiator gameInstantiator;
 
     public GameServiceImpl(GameRepository deployedGameRepository,
                            GameRepository instantiatedGameRepository,
                            GameDeployer gameDeployer,
                            GameLoader gameLoader,
-                           DeploymentRepository deploymentRepository) {
+                           DeploymentRepository deploymentRepository,
+                           GameInstantiator gameInstantiator) {
         this.deployedGameRepository = deployedGameRepository;
         this.instantiatedGameRepository = instantiatedGameRepository;
         this.gameDeployer = gameDeployer;
         this.gameLoader = gameLoader;
         this.deploymentRepository = deploymentRepository;
+        this.gameInstantiator = gameInstantiator;
     }
 
     @Override
@@ -76,6 +80,14 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game getDeployedGameById(String gameId) {
         return deployedGameRepository.getGameById(gameId);
+    }
+
+    @Override
+    public Game instantiateGame(String gameId) {
+        Game game = deployedGameRepository.getGameById(gameId);
+        game = gameInstantiator.instantiate(game);
+        instantiatedGameRepository.addGame(game, gameId);
+        return game;
     }
 
     @Override

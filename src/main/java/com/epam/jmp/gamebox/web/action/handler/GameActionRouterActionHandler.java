@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.jmp.gamebox.impl.GameActionImpl;
-import com.epam.jmp.gamebox.web.util.SessionUtils;
+import com.epam.jmp.gamebox.web.util.WebUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class GameActionRouterActionHandler implements ActionHandler {
         String gameId = (String)request.getAttribute(GAME_ID_PARAMETER_NAME);
         String actionId = (String)request.getAttribute(ACTION_ID_PARAMETER_NAME);
 
-        Session gameSession = SessionUtils.getGameSession(request, gameId);
+        Session gameSession = WebUtils.getGameSession(request, gameId);
 
         Action action = createGameAction(actionId, request, gameSession);
 
