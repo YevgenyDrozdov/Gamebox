@@ -11,6 +11,7 @@
 
     <modules>
         <module>gamebox-impl</module>
+        <module>gamebox-webapp</module>
     </modules>
 
     <dependencies>

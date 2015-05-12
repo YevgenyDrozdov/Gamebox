@@ -101,7 +101,7 @@ public final class GameboxContext {
     }
 
     private void initializeGameboxClassLoader() {
-        gameboxClassLoader = new GameboxClassLoader();
+        gameboxClassLoader = new GameboxClassLoader(this.getClass().getClassLoader());
     }
 
     private static class InstanceHolder {
