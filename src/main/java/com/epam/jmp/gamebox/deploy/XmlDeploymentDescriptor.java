@@ -1,7 +1,5 @@
 package com.epam.jmp.gamebox.deploy;
 
-import com.epam.jmp.gamebox.DeploymentId;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 

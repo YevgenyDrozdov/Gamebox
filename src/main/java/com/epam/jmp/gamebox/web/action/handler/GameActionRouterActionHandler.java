@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.jmp.gamebox.impl.GameActionImpl;
+import com.epam.jmp.gamebox.api.impl.GameActionImpl;
 import com.epam.jmp.gamebox.web.util.WebUtils;
 
 import java.util.HashMap;

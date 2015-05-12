@@ -4,8 +4,8 @@ import com.epam.jmp.gamebox.Action;
 import com.epam.jmp.gamebox.Game;
 import com.epam.jmp.gamebox.GameModel;
 import com.epam.jmp.gamebox.Session;
-import com.epam.jmp.gamebox.impl.GameActionImpl;
-import com.epam.jmp.gamebox.impl.GameModelImpl;
+import com.epam.jmp.gamebox.api.impl.GameActionImpl;
+import com.epam.jmp.gamebox.api.impl.GameModelImpl;
 import com.epam.jmp.gamebox.services.GameService;
 import com.epam.jmp.gamebox.web.util.WebUtils;
 

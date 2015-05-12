@@ -2,7 +2,7 @@ package com.epam.jmp.gamebox.war.loader;
 
 import com.epam.jmp.gamebox.Game;
 import com.epam.jmp.gamebox.GameDescriptor;
-import com.epam.jmp.gamebox.GameLoader;
+import com.epam.jmp.gamebox.loader.GameLoader;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 import com.epam.jmp.gamebox.deploy.meta.GameDescriptorImpl;
 import com.epam.jmp.gamebox.impl.GameImpl;

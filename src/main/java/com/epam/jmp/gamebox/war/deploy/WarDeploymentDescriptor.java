@@ -1,6 +1,6 @@
 package com.epam.jmp.gamebox.war.deploy;
 
-import com.epam.jmp.gamebox.DeploymentId;
+import com.epam.jmp.gamebox.deploy.DeploymentId;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 
 public class WarDeploymentDescriptor implements DeploymentDescriptor {

@@ -1,12 +1,11 @@
 package com.epam.jmp.gamebox.war.deploy;
 
-import com.epam.jmp.gamebox.DeploymentId;
+import com.epam.jmp.gamebox.deploy.DeploymentId;
 import com.epam.jmp.gamebox.deploy.DeployAssistant;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 import com.epam.jmp.gamebox.deploy.XmlDeploymentDescriptor;
 import com.epam.jmp.gamebox.util.FileUtils;
 import com.epam.jmp.gamebox.util.XmlUtils;
-import com.epam.jmp.gamebox.war.loader.WarGameClassLoaderBuilder;
 
 import java.io.File;
 

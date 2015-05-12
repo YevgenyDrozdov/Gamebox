@@ -1,7 +1,6 @@
 package com.epam.jmp.gamebox.deploy.meta;
 
 import com.epam.jmp.gamebox.GameDescriptor;
-import com.epam.jmp.gamebox.GameManifest;
 
 public class ManifestBasedGameDescriptor extends GameDescriptorImpl {
 

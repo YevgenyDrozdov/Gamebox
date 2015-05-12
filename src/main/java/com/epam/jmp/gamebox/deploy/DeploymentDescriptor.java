@@ -1,7 +1,5 @@
 package com.epam.jmp.gamebox.deploy;
 
-import com.epam.jmp.gamebox.DeploymentId;
-
 public interface DeploymentDescriptor {
 
     Long getDeploymentTime();

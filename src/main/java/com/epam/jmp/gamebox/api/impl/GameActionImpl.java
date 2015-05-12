@@ -1,4 +1,4 @@
-package com.epam.jmp.gamebox.impl;
+package com.epam.jmp.gamebox.api.impl;
 import com.epam.jmp.gamebox.Action;
 import com.epam.jmp.gamebox.Session;
 

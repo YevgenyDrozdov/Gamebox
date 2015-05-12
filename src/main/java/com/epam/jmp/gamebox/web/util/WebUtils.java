@@ -2,7 +2,7 @@ package com.epam.jmp.gamebox.web.util;
 
 import com.epam.jmp.gamebox.GameModel;
 import com.epam.jmp.gamebox.Session;
-import com.epam.jmp.gamebox.impl.SessionImpl;
+import com.epam.jmp.gamebox.api.impl.SessionImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

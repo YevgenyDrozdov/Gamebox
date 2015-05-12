@@ -1,4 +1,4 @@
-package com.epam.jmp.gamebox;
+package com.epam.jmp.gamebox.deploy;
 
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 

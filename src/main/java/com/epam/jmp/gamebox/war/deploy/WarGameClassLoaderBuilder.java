@@ -1,5 +1,6 @@
-package com.epam.jmp.gamebox.war.loader;
+package com.epam.jmp.gamebox.war.deploy;
 
+import com.epam.jmp.gamebox.GameboxContext;
 import com.epam.jmp.gamebox.util.FileUtils;
 
 import java.io.File;
@@ -52,7 +53,7 @@ public class WarGameClassLoaderBuilder {
             }
         }
 
-        return new URLClassLoader(gameBinariesPaths.toArray(new URL[0]), this.getClass().getClassLoader());
+        return new URLClassLoader(gameBinariesPaths.toArray(new URL[0]), GameboxContext.getInstance().getGameboxClassLoader());
     }
 
 }

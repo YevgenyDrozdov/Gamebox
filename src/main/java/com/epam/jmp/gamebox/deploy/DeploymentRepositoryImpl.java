@@ -1,6 +1,6 @@
-package com.epam.jmp.gamebox.impl;
+package com.epam.jmp.gamebox.deploy;
 
-import com.epam.jmp.gamebox.DeploymentRepository;
+import com.epam.jmp.gamebox.deploy.DeploymentRepository;
 import com.epam.jmp.gamebox.deploy.DeploymentDescriptor;
 
 import java.util.ArrayList;
